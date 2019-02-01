@@ -6,9 +6,7 @@ package githubdetail.com.githubdetails.Core;
 
 public class DetailActivityPresenter implements GetGithubDetail.onDateUpdateListner,GetGithubDetail.DetailsActPresenter {
 
-    private GetGithubDetail.DetailsView DetailsView;
-
-    DetailActivityCore detailActivityCore;
+    private DetailActivityCore detailActivityCore;
     private GetGithubDetail.DetailsView detailsView;
 
     public DetailActivityPresenter(GetGithubDetail.DetailsView DetailsView){

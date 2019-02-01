@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GitHubDetails</string>
+    <string name="brand_loader_msg">Please wait..........</string>
 </resources>

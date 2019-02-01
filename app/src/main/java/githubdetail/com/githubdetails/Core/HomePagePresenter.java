@@ -12,8 +12,8 @@ import githubdetail.com.githubdetails.Model.Item;
 
 public class HomePagePresenter implements GetGithubDetail.Presenter,GetGithubDetail.onGetDataListener {
 
-    GetGithubDetail.View view;
-    Interactor interactor;
+    private GetGithubDetail.View view;
+    private Interactor interactor;
 
     public HomePagePresenter(GetGithubDetail.View view){
         this.view=view;
@@ -31,6 +31,7 @@ public class HomePagePresenter implements GetGithubDetail.Presenter,GetGithubDet
     @Override
     public void getInternetAvailblity(Context context) {
         interactor.initNetworkStatus(context);
+
     }
 
     @Override

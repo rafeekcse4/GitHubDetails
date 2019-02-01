@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -60,27 +61,55 @@ public class Util {
 }
 
 
-    public static String getDate(String string)
-    {
-        String v;
-        try
-        {
-            // String string = "2016-12-02T00:00:00.000Z";
-            // String defaultTimezone = TimeZone.getDefault().getID();
-           /* SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ENGLISH);
-            df.setTimeZone(TimeZone.getDefault());*/
-            SimpleDateFormat df = new SimpleDateFormat(
-                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
-            df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-            Date date = df.parse(string.replaceAll("Z$", "+0000"));
-            v=(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss")).format(date);
+
+    public static String getFormatedDate(String dateString) {
+        if (!dateString.equals("")){
+            {
+                String formattedDate = null;
+                String date_after = formateDateFromstring("yyyy-MM-dd'T'HH:mm:ss'Z'", "MMM dd, yyyy HH:mm:ss a", dateString);
+
+//        System.out.println("date_after="+date_after);
+
+                SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss", Locale.ENGLISH);
+                SimpleDateFormat df1 = new SimpleDateFormat("dd-MMM-yy hh:mm a", Locale.ENGLISH);
+
+                df.setTimeZone(TimeZone.getTimeZone("UTC"));
+                Date date;
+                try {
+                    date = df.parse(date_after);
+                    df.setTimeZone(TimeZone.getDefault());
+                    formattedDate= df1.format(date);
+//            System.out.println("formattedDate="+formattedDate);
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                return formattedDate;
+            }
+        }else
+            return "00-00-0000 00:00";
+    }
+
+
+    private static String formateDateFromstring(String inputFormat, String outputFormat, String inputDate){
+
+        Date parsed;
+        String outputDate = "";
+
+        SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, java.util.Locale.getDefault());
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, java.util.Locale.getDefault());
+
+        try {
+            parsed = df_input.parse(inputDate);
+            outputDate = df_output.format(parsed);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        catch (Exception e)
-        {
-            v = "00-00-0000 00:00";
-        }
-        return v;
+
+        return outputDate;
+
     }
 
 

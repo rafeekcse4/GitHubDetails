@@ -18,7 +18,7 @@ public class DetailActivityCore implements GetGithubDetail.DetailInteractor {
     @Override
     public void changeToDateForamt(String date) {
 
-        String updateddate= Util.getDate(date);
+        String updateddate= Util.getFormatedDate(date);
 
         onDateUpdateListner.DateUpdate(updateddate);
 

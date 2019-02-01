@@ -43,9 +43,7 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
         Item item=list.get(position);
         String imageLink= item.getOwner().getAvatarUrl();
-         if(null != item.getOwner().getAvatarUrl() || !"".equals(item.getOwner().getAvatarUrl())){
-         //   myViewHolder.img_avatar.setImageUrl(Url,imageLoader);
-        }
+        //   myViewHolder.img_avatar.setImageUrl(Url,imageLoader);
 
         if(imageLink!=null && !"".equals(item.getOwner().getAvatarUrl())){
             Picasso.with(context)

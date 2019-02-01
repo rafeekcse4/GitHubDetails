@@ -17,9 +17,9 @@ import githubdetail.com.githubdetails.R;
 public class DetailsActivity extends AppCompatActivity implements  GetGithubDetail.DetailsView {
 
     //Instanitate the text view
-    TextView txt_projectname,txt_ownername,txt_owner_profile,txt_desc,txt_project_url,txt_createdate;
+   private TextView txt_projectname,txt_ownername,txt_owner_profile,txt_desc,txt_project_url,txt_createdate;
 
-    Item item;
+    private Item item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +35,16 @@ public class DetailsActivity extends AppCompatActivity implements  GetGithubDeta
 
         txt_owner_profile=findViewById(R.id.id_txt_owner_profile_right);
 
-
+        //Get the Item object from home page actiivty
         Intent intent = getIntent();
         ItemParcelable itemdata = intent.getParcelableExtra("data");
 
         item = itemdata.getItem();
         Log.i("bucky second Activity", item + "---" + item.getOwner().getLogin());
 
+        //Update the view
         DetailActivityPresenter activityPresenter=new DetailActivityPresenter(this);
         activityPresenter.getDateAvaliablity(item.getCreatedAt());
-
-
-
     }
 
 
@@ -81,10 +79,6 @@ public class DetailsActivity extends AppCompatActivity implements  GetGithubDeta
         txt_project_url.setLinkTextColor(ContextCompat.getColor(this, R.color.brand_linkcolor));
         Linkify.addLinks(txt_project_url, Linkify.WEB_URLS | Linkify.PHONE_NUMBERS);
         Linkify.addLinks(txt_project_url, Linkify.ALL);
-
-
-
-
 
     }
 }

@@ -1,9 +1,5 @@
 package githubdetail.com.githubdetails.Model;
 
-/**
- * Created by mohamed Rafeek on 26/1/2019.
- */
-
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

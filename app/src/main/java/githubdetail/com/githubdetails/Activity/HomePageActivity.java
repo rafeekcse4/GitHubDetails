@@ -1,6 +1,5 @@
 package githubdetail.com.githubdetails.Activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,16 +22,19 @@ import githubdetail.com.githubdetails.R;
 public class HomePageActivity extends AppCompatActivity implements GetGithubDetail.View, GithubAdapter.ClickLister {
 
     //Instantiate the Text view and  recycler view
-    TextView txt_network_status_message;
-    RecyclerView recyclerView;
+   private TextView txt_network_status_message;
+    private RecyclerView recyclerView;
 
     //creating object the presenter
-    HomePagePresenter homePagePresenter;
+   private HomePagePresenter homePagePresenter;
 
 
+    //instantiate the adapter
     private GithubAdapter githubAdapter;
-    private ProgressDialog progressDialog;
+    //Instantiate the layout manager
     private RecyclerView.LayoutManager mLayoutmanager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,39 +43,45 @@ public class HomePageActivity extends AppCompatActivity implements GetGithubDeta
         //Set the view for text view and recycler view
         txt_network_status_message = findViewById(R.id.id_txt_errormessage);
         recyclerView = findViewById(R.id.id_recyclerview);
+
+        //create the object for layout manager
         mLayoutmanager=new LinearLayoutManager(this);
 
+        //create the object for presenter class
         homePagePresenter = new HomePagePresenter(this);
-        homePagePresenter.getInternetAvailblity(this);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading............");
-        progressDialog.show();
+        //verify intenet avaliablity
+        homePagePresenter.getInternetAvailblity(this);
     }
 
     @Override
     public void onGetDateSuccess(String message, List<Item> list) {
-        progressDialog.hide();
+
+        //set the adapter with list view
         githubAdapter=new GithubAdapter(this,list);
+
+        //visible recycler view
         recyclerView.setVisibility(View.VISIBLE);
         recyclerView.setLayoutManager(mLayoutmanager);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(githubAdapter);
-        githubAdapter.setClickLister(this);
 
-        progressDialog.hide();
+        //set the item click listener for recycler view
+        githubAdapter.setClickLister(this);
     }
 
     @Override
     public void onGetDataFailure(String message) {
-        progressDialog.hide();
+
+        recyclerView.setVisibility(View.GONE);
+        txt_network_status_message.setVisibility(View.VISIBLE);
+
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onGetInternetStatus(boolean status) {
-    //    progressDialog.hide();
         if (status) {
             txt_network_status_message.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
@@ -84,18 +92,18 @@ public class HomePageActivity extends AppCompatActivity implements GetGithubDeta
 
             txt_network_status_message.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
+
         }
 
     }
 
     @Override
     public void itemClick(View view, int position, Item item) {
-        Toast.makeText(this,position+"",Toast.LENGTH_LONG).show();
+        //Parcel the item object and move to another acitivity
         ItemParcelable itemParcelable=new ItemParcelable(item);
         Intent intent=new Intent(this,DetailsActivity.class);
         intent.putExtra("data",itemParcelable);
         startActivity(intent);
-
 
     }
 }

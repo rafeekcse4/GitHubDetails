@@ -11,7 +11,9 @@ import githubdetail.com.githubdetails.Model.Item;
  */
 
 public interface GetGithubDetail {
-     interface View{
+
+
+    interface View{
         void onGetDateSuccess(String message, List<Item> list);
         void onGetDataFailure(String message);
         void onGetInternetStatus(boolean status);

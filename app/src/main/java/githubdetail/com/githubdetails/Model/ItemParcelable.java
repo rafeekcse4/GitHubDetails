@@ -16,7 +16,7 @@ public class ItemParcelable implements Parcelable{
         this.item = item;
     }
 
-    ItemParcelable(Parcel in){
+    private ItemParcelable(Parcel in){
         item=new Gson().fromJson(in.readString(),Item.class);
     }
 
